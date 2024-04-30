@@ -1,0 +1,33 @@
+.navbar {
+    height: 70px;
+    padding: 0px 0px 5px;
+}
+
+nav .navbar-brand #logo {
+    width: 36px;
+    height: 45px;
+    margin: 0 8px;
+} 
+
+.offcanvas-body .dropdown .dropdown-menu {
+    background: rgb(199, 235, 247);
+    width: 200px;
+}
+
+#offcanvasNavbar .offcanvas-body .navbar-nav .nav-item .nav-link {
+    font-size: 1.05rem;
+    color: rgba(2, 31, 51, 0.9);
+    transition: all 0.3s;
+}
+
+#offcanvasNavbar .offcanvas-body .navbar-nav .nav-item .nav-link:hover {
+    color: #72a7b4;
+}
+
+
+.sidebar .offcanvas-header .logo {
+    width: 36px;
+    height: 45px;
+    margin-right: 50px;
+}
+

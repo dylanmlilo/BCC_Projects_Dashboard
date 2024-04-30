@@ -1,0 +1,26 @@
+footer {
+    background: rgba(3, 3, 126, 0.849);
+    width: 100%;
+    border-top: 1px solid gray;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    color: #fff;
+}
+
+footer .nav-link {
+    font-size: 1.1rem;
+    color: #cfc7c7;
+}
+
+.vision {
+    font-size: 1.7rem;
+}
+
+.copyright {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #cfc7c7;
+}
+
+

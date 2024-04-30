@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="stats-container">
+    <h1>Services Projects</h1>
+</div>
+<div class="stats_data_container">
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <tr class="table-dark">
+                <th>Contract Number</th>
+                <th>Contract Name</th>
+                <th>Project Manager</th>
+                <th>Contractor</th>
+                <th>Year</th>
+                <th>Status</th>
+                <th>Early Start Date</th>
+                <th>Contract Duration (Months)</th>
+                <th>Early Finish Date</th>
+                <th>Extension of Time</th>
+                <th>Physical Progress</th>
+                <th>Financial Progress</th>
+            </tr>
+
+            {% for services_data in projects_data %}
+            <tr class="table-dark {% if loop.index % 2 == 1 %}table-active{% else %}{% endif %}">
+                <td>{{ services_data.contract_number }}</td>
+                <td>{{ services_data.contract_name }}</td>
+                <td>{{ services_data.project_manager }}</td>
+                <td>{{ services_data.contractor}}</td>
+                <td>{{ services_data.year }}</td>
+                <td>{{ services_data.project_status }}</td>
+                <td>{{ services_data.early_start_date }}</td>
+                <td>{{ services_data.contract_duration_months }}</td>
+                <td>{{ services_data.early_finish_date }}</td>
+                <td>{{ services_data.extension_of_time }}</td>
+                <td>{{ services_data.physical_progress_percentage }}</td>
+                <td>{{ services_data.financial_progress_percentage }}</td>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock%}
