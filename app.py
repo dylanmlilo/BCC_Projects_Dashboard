@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, request
 from models.plot_functions import plot_home_page_charts
 from models.engine.database import projects_data_to_dict_list
 import os
@@ -14,11 +14,25 @@ app.secret_key = os.getenv("SECRET_KEY")
 @app.route("/", strict_slashes=False)
 def index():
     projects_data = projects_data_to_dict_list()
+    active_projects = [project for project in projects_data if project['project_status'] == "In Progress"]
+
+    # Get unique project names for dropdown
+    project_names = [project['contract_name'] for project in active_projects]
+    
     graph1JSON, graph2JSON, graph3JSON, graph4JSON, graph5JSON = plot_home_page_charts()
     return render_template("home.html", graph1JSON=graph1JSON,
                            graph2JSON=graph2JSON, graph3JSON=graph3JSON,
                            graph4JSON=graph4JSON, projects_data=projects_data,
-                           graph5JSON=graph5JSON)
+                           graph5JSON=graph5JSON, project_names=project_names)
+    
+    
+# @app.route('/get_project_managers', methods=['GET'])
+# def get_project_managers():
+#     # Query the database to get the list of project managers
+#     project_managers = ['Alice', 'Bob', 'Charlie']  # Example list of project managers
+
+#     return jsonify(project_managers)
+    
 
 @app.route("/Servicing", strict_slashes=False)
 def servicing():

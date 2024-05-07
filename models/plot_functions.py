@@ -9,7 +9,7 @@ from models.projects import ProjectsData, ContractType, Section, ProjectManagers
 from datetime import datetime, timedelta
 
 
-def plot_home_page_charts():
+def plot_home_page_charts(selected_project_manager=None):
     """
     Generates and returns JSON representations of various plots for projects data
     
@@ -19,6 +19,14 @@ def plot_home_page_charts():
     """
     projects_data = projects_data_to_dict_list()
     df = pd.DataFrame(projects_data)
+    
+    if selected_project_manager:
+        filtered_data = [project for project in projects_data if project['project_manager'] == selected_project_manager]
+    else:
+        filtered_data = projects_data
+
+    df = pd.DataFrame(filtered_data)
+    
     fig1 = px.bar(df, x = 'contract_number', y = 'physical_progress_percentage',
                   color='project_manager', title = "Physical Progress of Works")
     fig1.update_layout(

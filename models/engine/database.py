@@ -1,6 +1,6 @@
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy import create_engine
-from models.projects import ProjectsData
+from models.projects import ProjectsData, ProjectManagers
 from dotenv import load_dotenv
 import os
 
@@ -56,6 +56,12 @@ def projects_data_to_dict_list(contract_type_id=None):
     
     sorted_result_list = sorted(result_list, key=lambda x: x["id"])
     return sorted_result_list
+
+# def project_managers_to_dict():
+#     project_managers = []
+#     project_manager = session.query(ProjectManagers.name).all()
+    
+        
 
 # result = projects_data_to_dict_list(1)
 # print(result)
