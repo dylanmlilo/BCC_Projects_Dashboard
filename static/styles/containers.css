@@ -24,8 +24,13 @@
 }
   
 
-.stats_percentage_container .date, .stats_percentage_container h3 {
+.date {
     font-size: 2rem;
+    background: rgb(165, 172, 172);
+    width: 50%;
+    border: 2px solid #948d8d;
+    border-radius: 10px;
+    margin: 50px auto;
 }
 
 
@@ -61,6 +66,10 @@
 }
 .stats_data_container .table tr td:hover {
     background: rgba(107, 109, 109, 0.712);
+}
+
+.stats_data_container h2 {
+    margin-top: 20px;
 }
 
 .stats_data_container .btn {
@@ -263,15 +272,15 @@ h3 {
     }
 
     .offcanvas-header {
-        background: rgb(199, 235, 247);
+        background: rgb(165, 172, 172);
         backdrop-filter: blur(40px);
-        text-shadow: 1px 1px 0px rgba(167, 167, 241, 0.74);
+        text-shadow: 1px 1px 0px rgb(148, 141, 141);
     }
     
     .offcanvas-body {
-        background: rgba(199, 235, 247, 0.75);
+        background: rgba(165, 172, 172, 0.8);
         backdrop-filter: blur(40px);
-        text-shadow: 1px 1px 0px rgba(217, 217, 250, 0.74);
+        text-shadow: 1px 1px 0px rgb(148, 141, 141);
     }
 
     .img_container1, .img_container2 {
@@ -329,15 +338,15 @@ h3 {
     }
 
     .offcanvas-header {
-        background: rgb(199, 235, 247);
+        background: rgb(165, 172, 172);
         backdrop-filter: blur(40px);
-        text-shadow: 1px 1px 0px rgba(167, 167, 241, 0.74);
+        text-shadow: 1px 1px 0px rgb(148, 141, 141);
     }
     
     .offcanvas-body {
-        background: rgba(199, 235, 247, 0.75);
+        background: rgba(165, 172, 172, 0.8);
         backdrop-filter: blur(40px);
-        text-shadow: 1px 1px 0px rgba(217, 217, 250, 0.74);
+        text-shadow: 1px 1px 0px rgb(148, 141, 141);
     }
 
     .img_container1, .img_container2 {
@@ -375,15 +384,15 @@ h3 {
     }
 
     .offcanvas-header {
-        background: rgb(199, 235, 247);
+        background: rgb(165, 172, 172);
         backdrop-filter: blur(40px);
-        text-shadow: 1px 1px 0px rgba(167, 167, 241, 0.74);
+        text-shadow: 1px 1px 0px rgb(148, 141, 141);
     }
     
     .offcanvas-body {
-        background: rgba(199, 235, 247, 0.75);
+        background: rgba(165, 172, 172, 0.8);
         backdrop-filter: blur(40px);
-        text-shadow: 1px 1px 0px rgba(217, 217, 250, 0.74);
+        text-shadow: 1px 1px 0px rgb(148, 141, 141);
     }
 
     .img_container1, .img_container2 {
@@ -403,6 +412,10 @@ h3 {
         background: url("../images/excavator2.jpg") no-repeat center;
     }
 
+    .stats-container h1 {
+        font-size: 5rem;
+    }
+
     .stats_data_container {
         width: 90%;
     }
@@ -420,6 +433,10 @@ h3 {
 
 @media (min-width: 1501px) {
 
+    .stats-container h1 {
+        font-size: 6rem;
+    }
+
     .stats_data_container {
         width: 90%;
     }
@@ -427,7 +444,6 @@ h3 {
     .dropdown:hover .dropdown-menu {
         display: block;
     }
-
 
     .img_container1, .img_container2 {
         width: 70%;

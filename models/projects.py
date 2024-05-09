@@ -48,6 +48,11 @@ class ProjectsData(Base):
     advance_payment_guarantee_expiry_date = Column(Date)
     total_certified_interim_payments_to_date = Column(DECIMAL(20, 2))
     financial_progress_percentage = Column(DECIMAL(10, 2))
+    roads_progress = Column(DECIMAL(10, 2))
+    water_progress = Column(DECIMAL(10, 2))
+    sewer_progress = Column(DECIMAL(10, 2))
+    storm_drainage_progress = Column(DECIMAL(10, 2))
+    public_lighting_progress = Column(DECIMAL(10, 2))
     physical_progress_percentage = Column(DECIMAL(10, 2))
     tax_clearance_validation = Column(String(50))
     

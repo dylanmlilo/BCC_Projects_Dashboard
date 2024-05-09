@@ -6,6 +6,7 @@
       <h1>City of Bulawayo Water and Sanitation Department</h1>
       <h2>Projects Dashboard</h2>
     </div>
+    <p class="card-text date">{{ today_date }}</p>
     <div class="about_container">
       <p class="main_paragraph">
         The BCC Projects Dashboard is your one-stop shop for gaining comprehensive insights into the health and progress of our ongoing endeavors.  
@@ -38,6 +39,7 @@
       </p>
     </div>
     <div class="stats_data_container">
+      <h2>Summary of Projects Progress Data</h2>
       <div class="table-responsive">
           <table class="table table-hover table-bordered">
               <tr class="table-dark">
@@ -156,20 +158,6 @@
     updateChartSize();
   
     window.addEventListener('resize', updateChartSize);
-
-    function updateChart() {
-        var selectedProjectManager = document.getElementById('projectManagerSlicer').value;
-
-        // Call plot_home_page_charts with the selected project manager
-        fetch('/update_chart', {
-            method: 'POST',
-            body: JSON.stringify({ selected_project_manager: selectedProjectManager })
-        }).then(response => response.json())
-          .then(data => {
-              var chart = document.getElementById('chart');
-              Plotly.newPlot(chart, JSON.parse(data));
-          });
-    }
 
 </script>
 {% endblock%}

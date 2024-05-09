@@ -4,12 +4,25 @@ import json
 import plotly
 import plotly_express as px
 import plotly.graph_objects as go
-from models.engine.database import session, projects_data_to_dict_list
+from models.engine.database import session, projects_data_to_dict_list, contract_type_data_dict
 from models.projects import ProjectsData, ContractType, Section, ProjectManagers
 from datetime import datetime, timedelta
 
 
-def plot_home_page_charts(selected_project_manager=None):
+def today_date():
+    """
+    Get the current date and format it as a string in the format 'Day, DD Month YYYY'.
+
+    Returns:
+        str: The formatted current date string.
+    """
+    today_date = datetime.today()
+
+    formatted_date = today_date.strftime('%a, %d %B %Y')
+    
+    return formatted_date
+
+def plot_home_page_charts():
     """
     Generates and returns JSON representations of various plots for projects data
     
@@ -19,14 +32,7 @@ def plot_home_page_charts(selected_project_manager=None):
     """
     projects_data = projects_data_to_dict_list()
     df = pd.DataFrame(projects_data)
-    
-    if selected_project_manager:
-        filtered_data = [project for project in projects_data if project['project_manager'] == selected_project_manager]
-    else:
-        filtered_data = projects_data
 
-    df = pd.DataFrame(filtered_data)
-    
     fig1 = px.bar(df, x = 'contract_number', y = 'physical_progress_percentage',
                   color='project_manager', title = "Physical Progress of Works")
     fig1.update_layout(
@@ -96,3 +102,63 @@ def plot_home_page_charts(selected_project_manager=None):
     graph5JSON = json.dumps(fig5, cls=plotly.utils.PlotlyJSONEncoder)
     
     return graph1JSON, graph2JSON, graph3JSON, graph4JSON, graph5JSON
+
+
+def plot_servicing_page_charts():
+  """
+  Generates a list of JSON representations of bar charts displaying project progress with colors.
+
+  Returns:
+      list: A list of JSON strings representing the Plotly charts, one for each project.
+  """  
+
+  servicing_data = contract_type_data_dict(1)
+  servicing_charts = []
+
+  if not servicing_data:
+    return servicing_charts
+
+  for project_data in servicing_data:
+    contract_name = project_data.get("contract_name")
+    contractor = project_data.get("contractor")
+    progress_data = {
+      "Progress Type": [
+        "Water", "Sewer", "Roads", "Storm Drainage", "Public Lighting", "Total Progress"
+      ],
+      "Progress Percentage": [
+        project_data["water_progress"],
+        project_data["sewer_progress"],
+        project_data["roads_progress"],
+        project_data["storm_drainage_progress"],
+        project_data["public_lighting_progress"],
+        project_data["physical_progress_percentage"]
+      ]
+    }
+
+    color_list = ['royalblue', 'goldenrod', 'grey', 'green', 'orange', 'red']
+
+    fig = px.bar(progress_data, x="Progress Type", y="Progress Percentage", title=contract_name, 
+                 color=progress_data["Progress Type"], color_discrete_sequence=color_list)
+    fig.update_layout(
+      legend_title = "Progress Type",
+      bargap=0.6,
+      title={
+        'text': contract_name,
+        'x': 0.5,
+        'y': 0.9,
+        'font': {
+          'size': 20,
+          'family': 'Arial'
+        }
+      },
+      xaxis_title_text="Contractor - {}".format(contractor),
+      yaxis_title_text="Progress Percentage(%)",
+      xaxis_title_font_size=17,
+      yaxis_title_font_size=17,
+      legend_title_font={'size': 16}
+    )
+
+    graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+    servicing_charts.append(graphJSON)
+
+  return servicing_charts

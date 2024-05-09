@@ -4,8 +4,9 @@
 <div class="stats-container">
     <h1>Servicing Projects</h1>
 </div>
-
+<p class="card-text date">{{ today_date }}</p>
 <div class="stats_data_container">
+    <h2>Summary of Servicing Projects Progress Data</h2>
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <tr class="table-dark">
@@ -15,12 +16,12 @@
                 <th>Contractor</th>
                 <th>Year</th>
                 <th>Status</th>
-                <th>Early Start Date</th>
-                <th>Contract Duration (Months)</th>
-                <th>Early Finish Date</th>
-                <th>Extension of Time</th>
-                <th>Physical Progress</th>
-                <th>Financial Progress</th>
+                <th>Water Progress (%)</th>
+                <th>Sewer Progress (%)</th>
+                <th>Roads Progress (%)</th>
+                <th>Storm Drain Progress (%)</th>
+                <th>Public Lighting Progress (%)</th>
+                <th>Total Progress (%)</th>
             </tr>
 
             {% for servicing_data in projects_data %}
@@ -31,14 +32,47 @@
                 <td>{{ servicing_data.contractor}}</td>
                 <td>{{ servicing_data.year }}</td>
                 <td>{{ servicing_data.project_status }}</td>
-                <td>{{ servicing_data.early_start_date }}</td>
-                <td>{{ servicing_data.contract_duration_months }}</td>
-                <td>{{ servicing_data.early_finish_date }}</td>
-                <td>{{ servicing_data.extension_of_time }}</td>
+                <td>{{ servicing_data.water_progress }}</td>
+                <td>{{ servicing_data.sewer_progress }}</td>
+                <td>{{ servicing_data.roads_progress }}</td>
+                <td>{{ servicing_data.storm_drainage_progress }}</td>
+                <td>{{ servicing_data.public_lighting_progress }}</td>
                 <td>{{ servicing_data.physical_progress_percentage }}</td>
-                <td>{{ servicing_data.financial_progress_percentage }}</td>
             {% endfor %}
         </table>
     </div>
 </div>
+{% for servicing_data in servicing_data_JSON %}
+      <div id="servicing_graph-container{{ loop.index }}" class="graph-container"></div>
+{% endfor %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+        // Load bar plots
+        var servicingData = {{ servicing_data_JSON | safe }};
+        servicingData.forEach(function(data, index) {
+            var divId = 'servicing_graph-container' + (index + 1);
+            var div = document.getElementById(divId);
+            Plotly.newPlot(div, JSON.parse(data));
+        });
+
+
+        function updateChartSize() {
+        const graphContainers = document.querySelectorAll('.graph-container');
+  
+        for (const container of graphContainers) {
+          const chartId = container.id; // Get the chart container ID
+          const chart = document.getElementById(chartId); // Find the chart element
+        
+          // Set chart width to occupy full width of the container
+          const containerWidth = container.clientWidth;
+          Plotly.relayout(chart, { width: containerWidth });
+        }
+    }
+  
+    // Initial call to set correct width on page load
+    updateChartSize();
+  
+    window.addEventListener('resize', updateChartSize);
+
+</script>
 {% endblock%}

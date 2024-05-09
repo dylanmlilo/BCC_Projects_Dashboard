@@ -57,6 +57,29 @@ def projects_data_to_dict_list(contract_type_id=None):
     sorted_result_list = sorted(result_list, key=lambda x: x["id"])
     return sorted_result_list
 
+
+def contract_type_data_dict(contract_type_id):
+    """
+    Filters and returns project data for a specific contract type id.
+
+    Args:
+      contract_type_id (int): The contract type id to filter by.
+
+    Returns:
+      list: A list of dictionaries containing project data for the specified contract type,
+        or an empty list if no data is found.
+    """ 
+
+    servicing_data = projects_data_to_dict_list()
+    filtered_data = [row for row in servicing_data if 'contract_type_id' in row and row['contract_type_id'] == contract_type_id]
+    return filtered_data
+
+# print(servicing_data_dict(4))
+
+
+# print(projects_data_to_dict_list())
+# print(servicing_data_dict(1))
+
 # def project_managers_to_dict():
 #     project_managers = []
 #     project_manager = session.query(ProjectManagers.name).all()
