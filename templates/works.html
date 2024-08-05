@@ -8,7 +8,8 @@
 <div class="stats_data_container">
     <h2>Summary of Works Projects Progress Data</h2>
     <div class="table-responsive">
-        <table class="table table-hover table-bordered">
+        <table id="works_table" class="table table-hover table-bordered table-striped">
+        <thead>
             <tr class="table-dark">
                 <th>Contract Number</th>
                 <th>Contract Name</th>
@@ -23,9 +24,11 @@
                 <th>Physical Progress</th>
                 <th>Financial Progress</th>
             </tr>
+        </thead>
 
+        <tbody>
             {% for works_data in projects_data %}
-            <tr class="table-dark {% if loop.index % 2 == 1 %}table-active{% else %}{% endif %}">
+            <tr class="table-light">
                 <td>{{ works_data.contract_number }}</td>
                 <td>{{ works_data.contract_name }}</td>
                 <td>{{ works_data.project_manager }}</td>
@@ -38,8 +41,29 @@
                 <td>{{ works_data.extension_of_time }}</td>
                 <td>{{ works_data.physical_progress_percentage }}</td>
                 <td>{{ works_data.financial_progress_percentage }}</td>
+            </tr>
             {% endfor %}
+        </tbody>
         </table>
     </div>
 </div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdn.datatables.net/inline-rows/2.0.8/inline-rows.js"></script>
+<script>
+  $(document).ready(function() {
+      $('#works_table').DataTable({
+          // "paging": true, // Disable pagination for inline editing
+          // "ordering": false, // Disable sorting for inline editing
+          // "info": false, // Disable info display for inline editing
+          // "scrollY": '50vh', // Set a fixed height for vertical scrolling
+          // "scrollCollapse": true, // Enable scrolling
+          // "scrollX": true, // Enable horizontal scrolling
+          // "autoWidth": false // Disable automatic column width calculation
+      });
+  });
+</script>
 {% endblock%}

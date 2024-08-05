@@ -1,0 +1,77 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="stats-container gis">
+    <h1>GIS Projects</h1>
+</div>
+<p class="card-text date">{{ today_date }}</p>
+<div class="stats_data_container">
+    <h2>Summary of GIS Projects</h2>
+    <div class="table-responsive">
+        <table id="gis_table" class="table table-hover table-bordered table-striped">
+            <thead>
+            <tr class="table-dark">
+                <th>OUT PUT</th>
+                <th>
+                    ACTIVITY<br>
+                    Activities add up
+                    to 100% of the
+                    Output
+                </th>
+                <th>
+                    TASK<br>
+                    Tasks add up to 100%
+                    of the Activity
+                </th>
+                <th>
+                    RESPONSIBLE
+                    OFFIER/PERSON<br>
+                    Names of Responsible
+                    People in Full
+                </th>
+                <th>DESIGNATION</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for gis_data in gis_data %}
+            <tr class="table-light">
+                <td>{{ gis_data.output_name }}</td>
+                <td>{{ gis_data.activity }}</td>
+                <td>{{ gis_data.task_description }}</td>
+                <td>{{ gis_data.responsible_person}}</td>
+                <td>{{ gis_data.designation }}</td>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+    
+    <!-- <div id="progress-container" class="graph-container"></div>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+        // Load area plots
+        var graph1Data = {{ progress_data | safe }};
+        Plotly.newPlot('progress-container', graph1Data, { responsive: true });
+    </script> -->
+
+</div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdn.datatables.net/inline-rows/2.0.8/inline-rows.js"></script>
+<script>
+  $(document).ready(function() {
+      $('#gis_table').DataTable({
+          // "paging": true, // Disable pagination for inline editing
+          // "ordering": false, // Disable sorting for inline editing
+          // "info": false, // Disable info display for inline editing
+          // "scrollY": '50vh', // Set a fixed height for vertical scrolling
+          // "scrollCollapse": true, // Enable scrolling
+          // "scrollX": true, // Enable horizontal scrolling
+          // "autoWidth": false // Disable automatic column width calculation
+      });
+  });
+</script>
+{% endblock%}

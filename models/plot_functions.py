@@ -121,6 +121,7 @@ def plot_servicing_page_charts():
   for project_data in servicing_data:
     contract_name = project_data.get("contract_name")
     contractor = project_data.get("contractor")
+    link = project_data.get("link")
     progress_data = {
       "Progress Type": [
         "Water", "Sewer", "Roads", "Storm Drainage", "Public Lighting", "Total Progress"
@@ -151,7 +152,7 @@ def plot_servicing_page_charts():
           'family': 'Arial'
         }
       },
-      xaxis_title_text="Contractor - {}".format(contractor),
+      xaxis_title_text = "Contractor - {} -- <a href='{}'>Link to Google Drive Folder</a>".format(contractor, link),
       yaxis_title_text="Progress Percentage(%)",
       xaxis_title_font_size=17,
       yaxis_title_font_size=17,
@@ -162,3 +163,34 @@ def plot_servicing_page_charts():
     servicing_charts.append(graphJSON)
 
   return servicing_charts
+
+def progress_bar():
+  progress_data = [
+  {'Task': 'Task 1', 'Progress': 0.8},
+  {'Task': 'Task 2', 'Progress': 0.5},
+  {'Task': 'Task 3', 'Progress': 0.2}
+  ]
+
+  # Create a Plotly bar chart for the progress bar
+  fig = go.Figure(data=[
+      go.Bar(
+          x=[data['Task']],
+          y=[data['Progress']],
+          marker_color='blue',  # You can set different colors for each bar
+          width=0.5  # Adjust the width of the bars
+      )
+      for data in progress_data
+  ])
+
+  # Update the layout of the chart
+  fig.update_layout(
+      title='Progress Side Bar Chart',
+      xaxis_title='Progress',
+      yaxis_title='Tasks',
+      xaxis=dict(range=[0, 1]),  # Set the range of the x-axis to represent progress from 0 to 1
+      barmode='group'  # Display bars in a grouped mode
+)
+  
+  progress_graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+  
+  return progress_graphJSON

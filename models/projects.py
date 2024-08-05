@@ -55,6 +55,7 @@ class ProjectsData(Base):
     public_lighting_progress = Column(DECIMAL(10, 2))
     physical_progress_percentage = Column(DECIMAL(10, 2))
     tax_clearance_validation = Column(String(50))
+    link = Column(String(255))
     
     contract_type = relationship("ContractType")
     project_manager = relationship("ProjectManagers")

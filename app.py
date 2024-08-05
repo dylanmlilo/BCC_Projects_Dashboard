@@ -1,6 +1,6 @@
 from flask import Flask, render_template, jsonify, request
-from models.plot_functions import today_date, plot_home_page_charts, plot_servicing_page_charts
-from models.engine.database import projects_data_to_dict_list
+from models.plot_functions import today_date, plot_home_page_charts, plot_servicing_page_charts, progress_bar
+from models.engine.database import projects_data_to_dict_list, gis_data_to_dict_list, gis_data_to_responsible_person, strategic_tasks_to_dict_list
 import os
 from dotenv import load_dotenv
 
@@ -64,6 +64,23 @@ def services():
     formatted_date = today_date()
     return render_template("services.html", today_date=formatted_date,
                            projects_data=projects_data)
+    
+@app.route("/GIS", strict_slashes=False)
+def gis():
+    gis_data = gis_data_to_dict_list()
+    responsible_persons= gis_data_to_responsible_person()
+    progress_data = progress_bar()
+    formatted_date = today_date()
+    return render_template("gis.html", today_date=formatted_date,
+                           gis_data=gis_data, progress_data=progress_data,
+                           responsible_persons=responsible_persons)
+    
+@app.route("/StrategicPlanning", strict_slashes=False)
+def strategic_planning():
+    strategic_data_list = strategic_tasks_to_dict_list()
+    formatted_date = today_date()
+    return render_template("strategic_planning.html", today_date=formatted_date, 
+                           strategic_data_list=strategic_data_list)
 
 
 if __name__ == "__main__":
