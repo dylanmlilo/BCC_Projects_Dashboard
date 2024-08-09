@@ -80,50 +80,15 @@
           </table>
       </div>
     </div>
-    <!-- <div class="tab_dropdown">
-      <div class="stats_data_container">
-
-        <select id="project_selector">
-          <option value="">Select Project</option>
-          {% for name in project_names %}
-            <option value="{{ name }}">{{ name }}</option>
-          {% endfor %}
-        </select>
-      
-        <div id="project_details" style="display: none;">
-          <table class="table table-hover table-bordered">
-            <tr class="table-dark">
-              <th>Contract Number</th>
-              <th>Contract Name</th>
-              <th>Project Manager</th>
-              <th>Contractor</th>
-              <th>Year</th>
-              <th>Status</th>
-              <th>Early Start Date</th>
-              <th>Contract Duration (Months)</th>
-              <th>Early Finish Date</th>
-              <th>Extension of Time</th>
-              <th>Physical Progress</th>
-              <th>Financial Progress</th>
-            </tr>
-            <tbody id="project_data_body"></tbody>
-          </table>
-        </div>
+    <div class="charts-container">
+      <div id="graph-container1" class="graph-container"></div>
+      <div id="graph-container2" class="graph-container"></div>
+      <div class="pie_container">
+        <div id="graph-container3" class="graph-container"></div>
+        <div id="graph-container5" class="graph-container"></div>
       </div>
-    </div> -->
-    <div id="graph-container1" class="graph-container"></div>
-    <!-- <select id="projectManagerSlicer" onchange="updateChart()">
-      <option value="">All Project Managers</option>
-      <option value="M Funi">M Funi</option>
-      <Add more project manager options as needed 
-  </select> -->
-  <!-- <div id="chart"></div> -->
-    <div id="graph-container2" class="graph-container"></div>
-    <div class="pie_container">
-      <div id="graph-container3" class="graph-container"></div>
-      <div id="graph-container5" class="graph-container"></div>
+      <div id="graph-container4" class="graph-container"></div>
     </div>
-    <div id="graph-container4" class="graph-container"></div>
 </div>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -183,4 +148,24 @@
     window.addEventListener('resize', updateChartSize);
 
 </script>
+<!-- <script>
+  function updatePieContainerSize() {
+      const pieContainer = document.querySelector('.pie_container');
+      const pieContainerWidth = pieContainer.clientWidth;
+
+      const pieChartContainers = pieContainer.querySelectorAll('.graph-container');
+      const chartWidth = pieContainerWidth / 2; // Set each chart to occupy 50% of the pie container width
+
+      pieChartContainers.forEach((pieChartContainer) => {
+          const pieChartId = pieChartContainer.id;
+          const pieChart = document.getElementById(pieChartId);
+          Plotly.relayout(pieChart, { width: chartWidth });
+      });
+  }
+
+  // Initial call to set correct width on page load
+  updatePieContainerSize();
+
+  window.addEventListener('resize', updatePieContainerSize);
+</script> -->
 {% endblock%}

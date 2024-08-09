@@ -39,7 +39,7 @@ def plot_home_page_charts():
     legend_title_text='Project Managers',
     title={
         'x': 0.5,
-        'y': 0.9,
+        'y': 0.93,
         'font': {
             'size': 25,
             'family': 'Arial'
@@ -49,7 +49,9 @@ def plot_home_page_charts():
     yaxis_title_text="Physical Progress (%)",
     xaxis_title_font_size=17,
     yaxis_title_font_size=17,
-    legend_title_font={'size': 16}
+    legend_title_font={'size': 16},
+    margin=dict(r=50, l=50, t=80, b=50),
+    paper_bgcolor='rgba(0, 0, 0, 0.1)'
     )
     
     fig2 = px.bar(df, x = 'contract_number', y = 'financial_progress_percentage',
@@ -58,7 +60,7 @@ def plot_home_page_charts():
     legend_title_text='Contract Type',
     title={
         'x': 0.5,
-        'y': 0.9,
+        'y': 0.93,
         'font': {
             'size': 25,
             'family': 'Arial'
@@ -68,31 +70,85 @@ def plot_home_page_charts():
     yaxis_title_text="Financial Progress (%)",
     xaxis_title_font_size=17,
     yaxis_title_font_size=17,
-    legend_title_font={'size': 16}
+    legend_title_font={'size': 16},
+    margin=dict(r=50, l=50, t=80, b=50),
+    paper_bgcolor='rgba(47, 182, 182, 0.2)'
     )
     
     # Group the projects by year and count the number of projects in each year
-    projects_by_year = df.groupby('year').size().reset_index(name='num_projects')
+    projects_by_year = df.groupby('year').size().reset_index(name='number_of_projects')
 
     # Create a pie chart using Plotly Express with the number of projects as values
-    fig3 = px.pie(projects_by_year, values='num_projects', names='year',
+    fig3 = px.pie(projects_by_year, values='number_of_projects', names='year',
              title='Distribution of Projects by Year')
     
+    fig3.update_layout(
+    title={
+        'x': 0.5,
+        'y': 0.95,
+        'font': {
+            'size': 25,
+            'family': 'Arial'
+        }
+    },
+    margin=dict(t=60, b=20),
+    paper_bgcolor='rgba(0, 0, 0, 0.1)'
+    )
+    
     # Group the projects by status and count the number of projects in each status
-    projects_by_status = df.groupby('project_status').size().reset_index(name='num_projects')
+    projects_by_status = df.groupby('project_status').size().reset_index(name='number_of_projects')
 
-    # Create a Treemap Chart using Plotly Express
-    fig4 = px.treemap(projects_by_status, path=['project_status'], values='num_projects', 
+    # Create a color map
+    color_map = {
+        'Completed': 'green',
+        'Stopped': 'red',
+        'In Progress': 'chartreuse',
+        'Retendered': 'orange',
+        'Yet to start': 'rgb(255, 166, 71)'
+    }
+
+    # Create the treemap
+    fig4 = px.treemap(projects_by_status,
+                      path=['project_status'],
+                      values='number_of_projects',
+                      color='project_status',
+                      color_discrete_map=color_map,
                       title='Distribution of Projects by Status')
+
+    fig4.update_layout(
+        title={
+            'x': 0.5,
+            'y': 0.93,
+            'font': {
+                'size': 22.5,
+                'family': 'Arial'
+            }
+        },
+        margin=dict(r=5, l=5, t=60, b=60),
+        paper_bgcolor='rgba(47, 182, 182, 0.2)'
+    )
     
     # Group the projects by project manager and 
     # count the number of projects for each manager
     projects_by_manager = df['project_manager'].value_counts().reset_index()
-    projects_by_manager.columns = ['project_manager', 'num_projects']
+    projects_by_manager.columns = ['project_manager', 'number_of_projects']
 
     # Create a Sunburst Chart using Plotly Express
-    fig5 = px.sunburst(projects_by_manager, path=['project_manager'], values='num_projects',
+    fig5 = px.sunburst(projects_by_manager, path=['project_manager'], values='number_of_projects',
                   title='Distribution of Projects by Project Managers')
+    
+    fig5.update_layout(
+    title={
+        'x': 0.5,
+        'y': 0.95,
+        'font': {
+            'size': 22,
+            'family': 'Arial'
+        }
+    },
+    margin=dict(t=60, b=20),
+    paper_bgcolor='rgba(0, 0, 0, 0.1)'
+    )
 
 
     graph1JSON = json.dumps(fig1, cls=plotly.utils.PlotlyJSONEncoder)
@@ -156,7 +212,8 @@ def plot_servicing_page_charts():
       yaxis_title_text="Progress Percentage(%)",
       xaxis_title_font_size=17,
       yaxis_title_font_size=17,
-      legend_title_font={'size': 16}
+      legend_title_font={'size': 16},
+      paper_bgcolor='rgba(0, 0, 0, 0.1)'
     )
 
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
