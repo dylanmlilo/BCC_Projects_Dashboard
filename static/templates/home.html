@@ -1,0 +1,171 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="main_container">
+    <div class="main-heading">
+      <h1>City of Bulawayo Water and Sanitation Department</h1>
+      <h2>Projects Dashboard</h2>
+    </div>
+    <p class="card-text date">{{ today_date }}</p>
+    <div class="about_container">
+      <p class="main_paragraph">
+        The BCC Projects Dashboard is your one-stop shop for gaining comprehensive insights into the health and progress of our ongoing endeavors.  
+        Here's a glimpse into the stories the various data points tell:
+      </p>
+      <h3>Contract Details</h3>
+      <p class="sub_paragraph">
+        The Contract Details section provides a comprehensive overview of the key details associated with each project,
+        including the project name, contract number, contract amount, and contract status.
+      </p>
+      <h3>Management and Timeline</h3>
+      <p class="sub_paragraph">
+        Identify the project manager assigned to each contract and track key dates like contract signing (by both BCC and the contractor),
+        early start and finish dates, and any extensions granted.
+      </p>
+      <h3>Financial Snapshot</h3>
+      <p class="sub_paragraph">
+        The dashboard empowers you to visualize the financial aspects of your projects. See the contract value, including the contingency buffer, alongside performance and advance payment guarantees and their expiry dates. 
+        Track the total certified interim payments made so far to gauge project spending.
+      </p>
+      <h3>Progress Tracking</h3>
+      <p class="sub_paragraph">
+        Evaluate project advancement through both financial and physical progress percentages. 
+        This dual perspective helps assess if expenditures are aligned with the physical completion stage.
+      </p>
+      <h3>Project Status</h3>
+      <p class="sub_paragraph">
+        Stay informed about the current status of each project (e.g., ongoing, completed, on hold). 
+        This allows for quick identification of potential roadblocks and facilitates informed decision-making.
+      </p>
+    </div>
+    <div class="stats_data_container">
+      <h2>Summary of Projects Progress Data</h2>
+      <div class="table-responsive">
+          <table id="home_table" class="table table-hover table-bordered table-striped">
+            <thead>
+              <tr class="table-dark">
+                  <th>Contract Number</th>
+                  <th>Contract Name</th>
+                  <th>Project Manager</th>
+                  <th>Contractor</th>
+                  <th>Year</th>
+                  <th>Status</th>
+                  <th>Early Start Date</th>
+                  <th>Contract Duration (Months)</th>
+                  <th>Early Finish Date</th>
+                  <th>Extension of Time</th>
+                  <th>Physical Progress</th>
+                  <th>Financial Progress</th>
+              </tr>
+            </thead>
+  
+            <tbody>
+              {% for data in projects_data %}
+              <tr class="table-light">
+                  <td>{{ data.contract_number }}</td>
+                  <td>{{ data.contract_name }}</td>
+                  <td>{{ data.project_manager }}</td>
+                  <td>{{ data.contractor}}</td>
+                  <td>{{ data.year }}</td>
+                  <td>{{ data.project_status }}</td>
+                  <td>{{ data.early_start_date }}</td>
+                  <td>{{ data.contract_duration_months }}</td>
+                  <td>{{ data.early_finish_date }}</td>
+                  <td>{{ data.extension_of_time }}</td>
+                  <td>{{ data.physical_progress_percentage }}</td>
+                  <td>{{ data.financial_progress_percentage }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+      </div>
+    </div>
+    <div class="charts-container">
+      <div id="graph-container1" class="graph-container"></div>
+      <div id="graph-container2" class="graph-container"></div>
+      <div class="pie_container">
+        <div id="graph-container3" class="graph-container"></div>
+        <div id="graph-container5" class="graph-container"></div>
+      </div>
+      <div id="graph-container4" class="graph-container"></div>
+    </div>
+</div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdn.datatables.net/inline-rows/2.0.8/inline-rows.js"></script>
+<script>
+  $(document).ready(function() {
+      $('#home_table').DataTable({
+          // "paging": true, // Disable pagination for inline editing
+          // "ordering": false, // Disable sorting for inline editing
+          // "info": false, // Disable info display for inline editing
+          // "scrollY": '50vh', // Set a fixed height for vertical scrolling
+          // "scrollCollapse": true, // Enable scrolling
+          // "scrollX": true, // Enable horizontal scrolling
+          // "autoWidth": false // Disable automatic column width calculation
+      });
+  });
+</script>
+<script>
+        // Load area plots
+        var graph1Data = {{ graph1JSON | safe }};
+        Plotly.newPlot('graph-container1', graph1Data, { responsive: true });
+
+        var graph2Data = {{ graph2JSON | safe }};
+        Plotly.newPlot('graph-container2', graph2Data, { responsive: true });
+
+        // Load Pie Chart
+        var graph3Data = {{ graph3JSON | safe }};
+        Plotly.newPlot('graph-container3', graph3Data, { responsive: true });
+
+        // Load Tree Chart
+        var graph4Data = {{ graph4JSON | safe }};
+        Plotly.newPlot('graph-container4', graph4Data, { responsive: true });
+
+        // Load Sunburst Chart
+        var graph5Data = {{ graph5JSON | safe }};
+        Plotly.newPlot('graph-container5', graph5Data, { responsive: true });
+
+        function updateChartSize() {
+        const graphContainers = document.querySelectorAll('.graph-container');
+  
+        for (const container of graphContainers) {
+          const chartId = container.id; // Get the chart container ID
+          const chart = document.getElementById(chartId); // Find the chart element
+        
+          // Set chart width to occupy full width of the container
+          const containerWidth = container.clientWidth;
+          Plotly.relayout(chart, { width: containerWidth });
+        }
+    }
+  
+    // Initial call to set correct width on page load
+    updateChartSize();
+  
+    window.addEventListener('resize', updateChartSize);
+
+</script>
+<!-- <script>
+  function updatePieContainerSize() {
+      const pieContainer = document.querySelector('.pie_container');
+      const pieContainerWidth = pieContainer.clientWidth;
+
+      const pieChartContainers = pieContainer.querySelectorAll('.graph-container');
+      const chartWidth = pieContainerWidth / 2; // Set each chart to occupy 50% of the pie container width
+
+      pieChartContainers.forEach((pieChartContainer) => {
+          const pieChartId = pieChartContainer.id;
+          const pieChart = document.getElementById(pieChartId);
+          Plotly.relayout(pieChart, { width: chartWidth });
+      });
+  }
+
+  // Initial call to set correct width on page load
+  updatePieContainerSize();
+
+  window.addEventListener('resize', updatePieContainerSize);
+</script> -->
+{% endblock%}
