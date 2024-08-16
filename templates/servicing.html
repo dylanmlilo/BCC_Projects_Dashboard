@@ -28,8 +28,8 @@
 
             <tbody>
             {% for servicing_data in projects_data %}
-                <tr class="{% if servicing_data.project_status == 'Completed' %}table-info 
-                {%elif servicing_data.project_status == 'In Progress' %}table-success
+                <tr class="{% if servicing_data.project_status == 'Completed' %}table-success 
+                {%elif servicing_data.project_status == 'In Progress' %}table-info
                 {%elif servicing_data.project_status == 'Stopped' %}table-danger
                 {% else %}table-warning{% endif %}">
                     <td>{{ servicing_data.contract_number }}</td>

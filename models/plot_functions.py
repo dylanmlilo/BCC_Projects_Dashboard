@@ -32,8 +32,11 @@ def plot_home_page_charts():
     """
     projects_data = projects_data_to_dict_list()
     df = pd.DataFrame(projects_data)
+    
+    # Assuming 'physical_progress_percentage' is a numeric column, you can filter out rows where it is not null
+    df_filtered_fig1 = df[df['physical_progress_percentage'].notnull()]
 
-    fig1 = px.bar(df, x = 'contract_number', y = 'physical_progress_percentage',
+    fig1 = px.bar(df_filtered_fig1, x = 'contract_number', y = 'physical_progress_percentage',
                   color='project_manager', title = "Physical Progress of Works")
     fig1.update_layout(
     legend_title_text='Project Managers',
@@ -54,7 +57,9 @@ def plot_home_page_charts():
     paper_bgcolor='rgba(0, 0, 0, 0.1)'
     )
     
-    fig2 = px.bar(df, x = 'contract_number', y = 'financial_progress_percentage',
+    df_filtered_fig2 = df[df['financial_progress_percentage'].notnull()]
+    
+    fig2 = px.bar(df_filtered_fig2, x = 'contract_number', y = 'financial_progress_percentage',
                   color='contract_type', title = "Financial Progress of Works")
     fig2.update_layout(
     legend_title_text='Contract Type',
@@ -100,9 +105,9 @@ def plot_home_page_charts():
 
     # Create a color map
     color_map = {
-        'Completed': 'green',
-        'Stopped': 'red',
-        'In Progress': 'chartreuse',
+        'Completed': '#109618',
+        'Stopped': '#FB0D0D',
+        'In Progress': '#00A08B',
         'Retendered': 'orange',
         'Yet to start': 'rgb(255, 166, 71)'
     }
@@ -173,6 +178,9 @@ def plot_servicing_page_charts():
 
   if not servicing_data:
     return servicing_charts
+  
+  bg_colors = ['rgba(0, 0, 0, 0.1)', 'rgba(47, 182, 182, 0.2)']
+  color_index = 0
 
   for project_data in servicing_data:
     contract_name = project_data.get("contract_name")
@@ -213,8 +221,10 @@ def plot_servicing_page_charts():
       xaxis_title_font_size=17,
       yaxis_title_font_size=17,
       legend_title_font={'size': 16},
-      paper_bgcolor='rgba(0, 0, 0, 0.1)'
+      paper_bgcolor=bg_colors[color_index]
     )
+    
+    color_index = (color_index + 1) % len(bg_colors)
 
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
     servicing_charts.append(graphJSON)
