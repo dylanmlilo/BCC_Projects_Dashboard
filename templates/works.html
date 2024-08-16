@@ -29,18 +29,18 @@
         <tbody>
             {% for works_data in projects_data %}
             <tr class="table-light">
-                <td>{{ works_data.contract_number }}</td>
-                <td>{{ works_data.contract_name }}</td>
-                <td>{{ works_data.project_manager }}</td>
-                <td>{{ works_data.contractor}}</td>
-                <td>{{ works_data.year }}</td>
-                <td>{{ works_data.project_status }}</td>
-                <td>{{ works_data.early_start_date }}</td>
-                <td>{{ works_data.contract_duration_months }}</td>
-                <td>{{ works_data.early_finish_date }}</td>
-                <td>{{ works_data.extension_of_time }}</td>
-                <td>{{ works_data.physical_progress_percentage }}</td>
-                <td>{{ works_data.financial_progress_percentage }}</td>
+                <td>{{ works_data.contract_number or '' }}</td>
+                <td>{{ works_data.contract_name or '' }}</td>
+                <td>{{ works_data.project_manager or '' }}</td>
+                <td>{{ works_data.contractor or '' }}</td>
+                <td>{{ works_data.year or '' }}</td>
+                <td>{{ works_data.project_status or '' }}</td>
+                <td>{{ works_data.early_start_date or '' }}</td>
+                <td>{{ works_data.contract_duration_months or '' }}</td>
+                <td>{{ works_data.early_finish_date or '' }}</td>
+                <td>{{ works_data.extension_of_time or '' }}</td>
+                <td>{{ works_data.physical_progress_percentage or '' }}</td>
+                <td>{{ works_data.financial_progress_percentage or '' }}</td>
             </tr>
             {% endfor %}
         </tbody>

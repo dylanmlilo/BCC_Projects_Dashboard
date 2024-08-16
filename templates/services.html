@@ -8,7 +8,7 @@
 <div class="stats_data_container">
     <h2>Summary of Services Projects Progress Data</h2>
     <div class="table-responsive">
-        <table id="services_table" class="table table-hover table-bordered">
+        <table id="services_table" class="table table-hover table-bordered table-striped">
             <thead>
             <tr class="table-dark">
                 <th>Contract Number</th>
@@ -28,19 +28,19 @@
 
             <tbody>
             {% for services_data in projects_data %}
-            <tr class="table-dark {% if loop.index % 2 == 1 %}table-active{% else %}{% endif %}">
-                <td>{{ services_data.contract_number }}</td>
-                <td>{{ services_data.contract_name }}</td>
-                <td>{{ services_data.project_manager }}</td>
-                <td>{{ services_data.contractor}}</td>
-                <td>{{ services_data.year }}</td>
-                <td>{{ services_data.project_status }}</td>
-                <td>{{ services_data.early_start_date }}</td>
-                <td>{{ services_data.contract_duration_months }}</td>
-                <td>{{ services_data.early_finish_date }}</td>
-                <td>{{ services_data.extension_of_time }}</td>
-                <td>{{ services_data.physical_progress_percentage }}</td>
-                <td>{{ services_data.financial_progress_percentage }}</td>
+            <tr class="table-light">
+                <td>{{ services_data.contract_number or '' }}</td>
+                <td>{{ services_data.contract_name or '' }}</td>
+                <td>{{ services_data.project_manager or '' }}</td>
+                <td>{{ services_data.contractor or '' }}</td>
+                <td>{{ services_data.year or '' }}</td>
+                <td>{{ services_data.project_status or '' }}</td>
+                <td>{{ services_data.early_start_date or '' }}</td>
+                <td>{{ services_data.contract_duration_months or '' }}</td>
+                <td>{{ services_data.early_finish_date or '' }}</td>
+                <td>{{ services_data.extension_of_time or '' }}</td>
+                <td>{{ services_data.physical_progress_percentage or '' }}</td>
+                <td>{{ services_data.financial_progress_percentage or '' }}</td>
             {% endfor %}
             </tr>
         </tbody>

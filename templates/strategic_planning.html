@@ -30,19 +30,19 @@
                     <td class="{% if strategic_data.status == 'In Progress' %}table-yellow_green
                 {%elif strategic_data.status == 'Complete' %}table-green
                 {%elif strategic_data.status == 'Overdue' %}table-red
-                {% else %}table-success{% endif %}">{{ strategic_data.status }}</td>
+                {% else %}table-info{% endif %}">{{ strategic_data.status }}</td>
                 <td class="{% if strategic_data.priority == 'Low' %}table-blue 
                 {%elif strategic_data.priority == 'High' %}table-red
-                {% else %}table-yellow{% endif %}">{{ strategic_data.priority }}</td>
-                    <td>{{ strategic_data.deadline }}</td>
-                    <td>{{ strategic_data.task }}</td>
-                    <td>{{ strategic_data.description }}</td>
-                    <td>{{ strategic_data.project_manager }}</td>
-                    <td>{{ strategic_data.deliverables }}</td>
-                    <td>{{ strategic_data.percentage_done }}</td>
-                    <td>{{ strategic_data.fixed_cost }}</td>
-                    <td>{{ strategic_data.estimated_hours }}</td>
-                    <td>{{ strategic_data.actual_hours }}</td>
+                {% else %}table-yellow{% endif %}">{{ strategic_data.priority or '' }}</td>
+                    <td>{{ strategic_data.deadline or '' }}</td>
+                    <td>{{ strategic_data.task or '' }}</td>
+                    <td>{{ strategic_data.description or '' }}</td>
+                    <td>{{ strategic_data.project_manager or '' }}</td>
+                    <td>{{ strategic_data.deliverables or '' }}</td>
+                    <td>{{ strategic_data.percentage_done or '' }}</td>
+                    <td>{{ strategic_data.fixed_cost or '' }}</td>
+                    <td>{{ strategic_data.estimated_hours or '' }}</td>
+                    <td>{{ strategic_data.actual_hours or '' }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

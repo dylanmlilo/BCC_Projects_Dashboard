@@ -62,18 +62,18 @@
             <tbody>
               {% for data in projects_data %}
               <tr class="table-light">
-                  <td>{{ data.contract_number }}</td>
-                  <td>{{ data.contract_name }}</td>
-                  <td>{{ data.project_manager }}</td>
-                  <td>{{ data.contractor}}</td>
-                  <td>{{ data.year }}</td>
-                  <td>{{ data.project_status }}</td>
-                  <td>{{ data.early_start_date }}</td>
-                  <td>{{ data.contract_duration_months }}</td>
-                  <td>{{ data.early_finish_date }}</td>
-                  <td>{{ data.extension_of_time }}</td>
-                  <td>{{ data.physical_progress_percentage }}</td>
-                  <td>{{ data.financial_progress_percentage }}</td>
+                  <td>{{ data.contract_number or '' }}</td>
+                  <td>{{ data.contract_name or '' }}</td>
+                  <td>{{ data.project_manager or '' }}</td>
+                  <td>{{ data.contractor or ''}}</td>
+                  <td>{{ data.year or '' }} </td>
+                  <td>{{ data.project_status or ''}}</td>
+                  <td>{{ data.early_start_date or ''}}</td>
+                  <td>{{ data.contract_duration_months or '' }}</td>
+                  <td>{{ data.early_finish_date or ''}}</td>
+                  <td>{{ data.extension_of_time or ''}}</td>
+                  <td>{{ data.physical_progress_percentage or ''  }}</td>
+                  <td>{{ data.financial_progress_percentage or ''}}</td>
               </tr>
               {% endfor %}
             </tbody>

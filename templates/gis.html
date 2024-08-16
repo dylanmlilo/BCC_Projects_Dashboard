@@ -36,11 +36,11 @@
             <tbody>
             {% for gis_data in gis_data %}
             <tr class="table-light">
-                <td>{{ gis_data.output_name }}</td>
-                <td>{{ gis_data.activity }}</td>
-                <td>{{ gis_data.task_description }}</td>
-                <td>{{ gis_data.responsible_person}}</td>
-                <td>{{ gis_data.designation }}</td>
+                <td>{{ gis_data.output_name or '' }}</td>
+                <td>{{ gis_data.activity or '' }}</td>
+                <td>{{ gis_data.task_description or '' }}</td>
+                <td>{{ gis_data.responsible_person or ''}}</td>
+                <td>{{ gis_data.designation or '' }}</td>
             {% endfor %}
         </tbody>
         </table>

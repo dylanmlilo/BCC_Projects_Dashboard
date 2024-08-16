@@ -32,18 +32,18 @@
                 {%elif servicing_data.project_status == 'In Progress' %}table-info
                 {%elif servicing_data.project_status == 'Stopped' %}table-danger
                 {% else %}table-warning{% endif %}">
-                    <td>{{ servicing_data.contract_number }}</td>
-                    <td>{{ servicing_data.contract_name }}</td>
-                    <td>{{ servicing_data.project_manager }}</td>
-                    <td>{{ servicing_data.contractor}}</td>
-                    <td>{{ servicing_data.year }}</td>
-                    <td>{{ servicing_data.project_status }}</td>
-                    <td>{{ servicing_data.water_progress }}</td>
-                    <td>{{ servicing_data.sewer_progress }}</td>
-                    <td>{{ servicing_data.roads_progress }}</td>
-                    <td>{{ servicing_data.storm_drainage_progress }}</td>
-                    <td>{{ servicing_data.public_lighting_progress }}</td>
-                    <td>{{ servicing_data.physical_progress_percentage }}</td>
+                    <td>{{ servicing_data.contract_number or '' }}</td>
+                    <td>{{ servicing_data.contract_name or '' }}</td>
+                    <td>{{ servicing_data.project_manager or '' }}</td>
+                    <td>{{ servicing_data.contractor or ''}}</td>
+                    <td>{{ servicing_data.year or '' }}</td>
+                    <td>{{ servicing_data.project_status or '' }}</td>
+                    <td>{{ servicing_data.water_progress or '' }}</td>
+                    <td>{{ servicing_data.sewer_progress or '' }}</td>
+                    <td>{{ servicing_data.roads_progress or '' }}</td>
+                    <td>{{ servicing_data.storm_drainage_progress or '' }}</td>
+                    <td>{{ servicing_data.public_lighting_progress or '' }}</td>
+                    <td>{{ servicing_data.physical_progress_percentage or '' }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
