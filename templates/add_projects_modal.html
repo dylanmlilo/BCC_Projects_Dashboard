@@ -1,0 +1,193 @@
+{% block content %}
+<div id="myProjectsModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New Data</h4>
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    <ul class="flashes">
+                        {% for category, message in messages %}
+                            <li class="flash {{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
+            
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('insert_projects_data') }}" method="post">
+                    <div class="form-group">
+                        <label>Contract Number <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="contract_number" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Contract Name <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="contract_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label> Select Contract Type <span style="color: red;">*</span></label>
+                        <select class="form-control" name="contract_type_id" required>
+                            <option value="1">Servicing</option>
+                            <option value="2">Services</option>
+                            <option value="3">Goods</option>
+                            <option value="4">Works</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label> Select Project Manager <span style="color: red;">*</span></label>
+                        <select class="form-control" name="project_manager_id" required>
+                            <option value="1">M Funi</option>
+                            <option value="2">D Gwetu</option>
+                            <option value="3">G Mabhena</option>
+                            <option value="4">E Moyo</option>
+                            <option value="5">A moyo</option>
+                            <option value="6">F Nkawu</option>
+                            <option value="7">T Moyo</option>
+                            <option value="8">Nigel Moyo</option>
+                            <option value="9">N Moyo</option>
+                            <option value="10">E Sibeko</option>
+                            <option value="11">S T Zondo</option>
+                            <option value="12">M N Zondo</option>
+                            <option value="13">E G Ngwenya</option>
+                            <option value="14">N Ncube</option>
+                            <option value="15">B Sibanda</option>
+                            <option value="16">S Mleya</option>
+                            <option value="17">C Nkomo</option>
+                            <option value="18">C Moyo</option>
+                            <option value="19">C Nkomo/ D Mlilo</option>
+                            <option value="20">V Ndabezwe</option>
+                            <option value="21">B Ndlovu</option>
+                            <option value="22">N Ngwenya</option>
+                            <option value="23">P Sibanda</option>
+                            <option value="24">F Nkonde</option>
+                            <option value="25">N Zulu</option>
+                            <option value="26">P Mateza</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label> Select Section <span style="color: red;">*</span></label>
+                        <select class="form-control" name="section_id" required>
+                            <option value="1">Projects</option>
+                            <option value="2">Water</option>
+                            <option value="3">Sanitation</option>
+                            <option value="4">Strategic Planning</option>
+                            <option value="5">Electromechanical</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Contractor</label>
+                        <input type="text" class="form-control" name="contractor">
+                    </div>
+                    <div class="form-group">
+                        <label>Year</label>
+                        <input type="text" class="form-control" name="year">
+                    </div>
+                    <div class="form-group">
+                        <label>Date Contract Signed by BCC</label>
+                        <input type="date" class="form-control" name="date_contract_signed_by_bcc">
+                    </div>
+                    <div class="form-group">
+                        <label>Date Contract Signed by BCC</label>
+                        <input type="date" class="form-control" name="date_contract_signed_by_bcc">
+                    </div>
+                    <div class="form-group">
+                        <label>Early Start Date</label>
+                        <input type="date" class="form-control" name="early_start_date">
+                    </div>
+                    <div class="form-group">
+                        <label>Contract Duration in Weeks</label>
+                        <input type="text" class="form-control" name="contract_duration_weeks" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number">
+                    </div>
+                    <div class="form-group">
+                        <label>Contract Duration in Months</label>
+                        <input type="text" class="form-control" name="contract_duration_months" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number">
+                    </div>
+                    <div class="form-group">
+                        <label>Early Finish Date</label>
+                        <input type="date" class="form-control" name="early_finish_date">
+                    </div>
+                    <div class="form-group">
+                        <label>Extension of Time</label>
+                        <input type="date" class="form-control" name="extension_of_time">
+                    </div>
+                    <div class="form-group">
+                        <label> Project Status <span style="color: red;">*</span></label>
+                        <select class="form-control" name="project_status">
+                            <option value="Completed">Completed</option>
+                            <option value="Stopped">Stopped</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Retendered">Retendered</option>
+                            <option value="Yet to start">Yet to start</option>
+                        </select>
+                    </div>
+                    <div class="Contract value including 10% contingency">
+                        <label>Extension of Time</label>
+                        <input type="text" class="form-control" name="contract_value_including_ten_percent_contingency" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number">
+                    </div>
+                    <div class="form-group">
+                        <label>Performance Guarantee Value</label>
+                        <input type="text" class="form-control" name="performance_guarantee_value" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number">
+                    </div>
+                    <div class="form-group">
+                        <label>Performance Guarantee Expiry Date</label>
+                        <input type="date" class="form-control" name="performance_guarantee_expiry_date">
+                    </div>
+                    <div class="form-group">
+                        <label>Advance Payment Value</label>
+                        <input type="text" class="form-control" name="advance_payment_value" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number">
+                    </div>
+                    <div class="form-group">
+                        <label>Advance Payment Guarantee Expiry Date</label>
+                        <input type="date" class="form-control" name="advance_payment_guarantee_expiry_date">
+                    </div>
+                    <div class="form-group">
+                        <label>Total Certified Interim Payments to Date</label>
+                        <input type="text" class="form-control" name="total_certified_interim_payments_to_date" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number">
+                    </div>
+                    <div class="form-group">
+                        <label>Financial Progress Percentage</label>
+                        <input type="text" class="form-control" name="financial_progress_percentage" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number">
+                    </div>
+                    <div class="form-group">
+                        <label>Roads Progress</label>
+                        <input type="text" class="form-control" name="roads_progress" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number">
+                    </div>
+                    <div class="form-group">
+                        <label>Water Progress</label>
+                        <input type="text" class="form-control" name="water_progress" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number">
+                    </div>
+                    <div class="form-group">
+                        <label>Sewer Progress</label>
+                        <input type="text" class="form-control" name="sewer_progress" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number">
+                    </div>
+                    <div class="form-group">
+                        <label>Storm Drainage Progress</label>
+                        <input type="text" class="form-control" name="storm_drainage_progress" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number">
+                    </div>
+                    <div class="form-group">
+                        <label>Public Lighting Progress</label>
+                        <input type="text" class="form-control" name="public_lighting_progress" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number">
+                    </div> 
+                    <div class="form-group">
+                        <label>Physical Progress Percentage</label>
+                        <input type="text" class="form-control" name="physical_progress_percentage" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number">
+                    </div>
+                    <div class="form-group">
+                        <label>Tax Clearance Validation</label>
+                        <input type="text" class="form-control" name="tax_clearance_validation">
+                    </div>
+                    <div class="form-group">
+                        <label>Link</label>
+                        <input type="text" class="form-control" name="link">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary left-aligned-button" style="float: left;" type="submit">Submit</button>
+                    </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'index.html'%}
+
+{% block nav %}
+  {% include 'nav.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="admin_dashboard">
+    <h1 class="admin-dashboard_title"> Welcome to the Administrator's Dashboard </h1>
+    <h3 class="admin-dashboard_select"> Select the data you want to manage</h3>
+    <div class="admin_nav_container">
+        <a class="admin_nav btn btn-secondary" href="/projects_data">Projects Data</a>
+        <a class="admin_nav btn btn-secondary" href="#">Strategic Planning Data</a>
+        <a class="admin_nav btn btn-secondary" href="GIS_data">GIS Data</a>
+    </div>
+</div>
+{% endblock%}

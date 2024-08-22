@@ -1,0 +1,58 @@
+{% block content %}
+<div id="myGISModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New Data</h4>
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    <ul class="flashes">
+                        {% for category, message in messages %}
+                            <li class="flash {{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
+            
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('insert_gis_data') }}" method="post">
+                    <div class="form-group">
+                        <label>Activity<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="activity" required>
+                    </div>
+                    <div class="form-group">
+                        <label> Output <span style="color: red;">*</span></label>
+                        <select class="form-control" name="output_id" required>
+                            <option value="1">Topographical Map Produced</option>
+                            <option value="2">Institutionalized GIS Policy</option>
+                            <option value="3">Trained staff members</option>
+                            <option value="4">Web-based application developed</option>
+                            <option value="5">Accurate and up-to-date Geo- databases provided</option>
+                            <option value="6">Three (3) decision making tools provided</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label> Responsible Person <span style="color: red;">*</span></label>
+                        <select class="form-control" name="responsible_person_id" required>
+                            <option value="1">MrS.MkandlaMr P. Ncube/ MrD.Khumalo/Mr N. Mpofu.</option>
+                            <option value="2">Mr D. Khumalo/ Mr P. Ncube/ Mr N. Mpofu /Miss S.Ndhlovu.</option>
+                            <option value="3">Sibusisiwe Sibanda</option>
+                            <option value="4">Bothwell Nhlalo Sibanda</option>
+                            <option value="5">Roderick Siziba</option>
+                            <option value="6">Sifelani Ngwenya</option>
+                            <option value="7">Tumisang Faith Ndlovu</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary left-aligned-button" style="float: left;" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

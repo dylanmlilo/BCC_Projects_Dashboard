@@ -1,0 +1,81 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<p class="card-text date">{{ today_date }}</p>
+<div class="stats_data_container">
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron data_container p-3">
+                <h2 class="left-aligned-text">Projects Data
+                    <a href="/admin_dashboard" class="btn btn-secondary back-btn float-right">Back</a>
+                    <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#myProjectsModal">Add New Data</button>
+                </h2>
+                <div class="table-responsive">
+                    <table id="projects_data_table" class="table table-hover table-bordered">
+                        <thead>
+                            <tr class="table-dark">
+                                <th>Contract Number</th>
+                                <th>Contract Name</th>
+                                <th>Project Manager</th>
+                                <th>Contractor</th>
+                                <th>Year</th>
+                                <th>Status</th>
+                                <th>Water Progress (%)</th>
+                                <th>Sewer Progress (%)</th>
+                                <th>Roads Progress (%)</th>
+                                <th>Storm Drain Progress (%)</th>
+                                <th>Public Lighting Progress (%)</th>
+                                <th>Total Progress (%)</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for projects_data in projects_data %}
+                            <tr>
+                                <td>{{ projects_data.contract_number or '' }}</td>
+                                <td>{{ projects_data.contract_name or '' }}</td>
+                                <td>{{ projects_data.project_manager or '' }}</td>
+                                <td>{{ projects_data.contractor or ''}}</td>
+                                <td>{{ projects_data.year or '' }}</td>
+                                <td>{{ projects_data.project_status or '' }}</td>
+                                <td>{{ projects_data.water_progress or '' }}</td>
+                                <td>{{ projects_data.sewer_progress or '' }}</td>
+                                <td>{{ projects_data.roads_progress or '' }}</td>
+                                <td>{{ projects_data.storm_drainage_progress or '' }}</td>
+                                <td>{{ projects_data.public_lighting_progress or '' }}</td>
+                                <td>{{ projects_data.physical_progress_percentage or '' }}</td>
+                                <td>
+                                    <a href="/delete_projects_data/{{ projects_data.id }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+                                    <a href="/update_projects_data/{{ projects_data.id }}" class="btn btn-warning btn-xs update-btn" data-toggle="modal" data-target="#updateprojectsModal{{ projects_data.id }}">Edit</a>
+                                </td>
+                            </tr>
+                            {% include "add_projects_modal.html" %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <a href="/admin_dashboard" class="btn btn-secondary back-btn float-right">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdn.datatables.net/inline-rows/2.0.8/inline-rows.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#projects_data_table').DataTable({
+            // "paging": true, // Disable pagination for inline editing
+            // "ordering": false, // Disable sorting for inline editing
+            // "info": false, // Disable info display for inline editing
+            // "scrollY": '50vh', // Set a fixed height for vertical scrolling
+            // "scrollCollapse": true, // Enable scrolling
+            // "scrollX": true, // Enable horizontal scrolling
+            // "autoWidth": false // Disable automatic column width calculation
+        });
+    });
+</script>
+{% endblock%}

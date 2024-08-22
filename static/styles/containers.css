@@ -1,3 +1,95 @@
+/* Containers CSS */
+
+/* Home Page Containers */
+.main_container .date h2 {
+    background: #e0ffff;
+    padding: 20px;
+    text-shadow: 1px 1px 2px #2e2c2c;
+    font-size: 3rem;
+}
+
+.main_container .sub-heading {
+    width: 50%;
+    margin: 50px auto;
+    background: rgba(47, 182, 182, 0.767);
+    padding: 5px 0 10px 0;
+    border-radius: 60px;
+    color: rgba(1, 1, 66, 0.6);
+}
+
+.main_container .sub-heading h2 {
+    margin-top: 20px;
+    font-size: x-large;
+    font-size: 3rem;
+}
+
+.stats_data_container {
+    background: rgba(107, 109, 109, 0.712);
+    margin-top: 100px;
+    border: 3px solid #948d8d;
+    border-radius: 10px;
+    margin: 50px auto;
+}
+
+.stats_data_container:hover {
+    background: rgb(165, 172, 172);
+    border-radius: 10px;
+}
+
+.stats_data_container .table-responsive
+{
+    padding: 10px 10px;
+}
+
+.stats_data_container .table tr td:hover {
+    background: rgba(233, 236, 236, 0.274);
+}
+
+.stats_data_container h2 {
+    margin-top: 20px;
+}
+
+.stats_data_container .btn-success {
+    float: right;
+}
+
+/* .stats_data_container .update-btn.btn {
+    margin-top: 10px;
+}
+
+.stats_data_container .back-btn {
+    margin-top: 10px;
+} */
+
+.about_container {
+    max-width: 75%;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #f5f5f5;;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.main_paragraph {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+.sub_paragraph {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+
+
+/* BCC_Projects_Dashboard\static\styles\containers.css */
 .main_graph {
     width: 100%;
     background-color: rgb(206, 188, 194);
@@ -45,44 +137,7 @@
     text-shadow: 2px 2px 4px #000; */
 }
 
-.stats_data_container {
-    background: rgba(107, 109, 109, 0.712);
-    margin-top: 100px;
-    border: 3px solid #948d8d;
-    border-radius: 10px;
-    margin: 50px auto;
-}
 
-.stats_data_container:hover {
-    background: rgb(165, 172, 172);
-    border-radius: 10px;
-}
-
-.stats_data_container .table-responsive
-{
-    padding: 10px 10px;
-}
-
-.stats_data_container .table tr td:hover {
-    background: rgba(233, 236, 236, 0.274);
-}
-
-.stats_data_container h2 {
-    margin-top: 20px;
-}
-
-.stats_data_container .btn {
-    float: right;
-}
-
-.stats_data_container .update-btn.btn {
-    margin-right: 5px;
-}
-
-.stats_data_container .back-btn {
-    margin-bottom: 10px;
-    margin-left: 4px;
-}
 
 .stats_percentage_container {
     margin-top: 20px;
@@ -92,10 +147,6 @@
 .stats_percentage_container .card-body {
     background-color: #e0ffff;
     border-radius: 5px;
-}
-
-.admin-dashboard_title, .login-title{
-    margin-top: 100px;
 }
 
 .admin-dashboard_select {
@@ -148,66 +199,38 @@
     margin: 20px 5px;
 }
 
-.logadmin_container {
+.login_container, .admin_dashboard {
     background: linear-gradient(to right, rgba(47, 182, 182, 0.767), rgba(47, 182, 182, 0.6), rgba(47, 182, 182, 0.767));
-    width: 1000px;
-    height: 280px;
-    margin: 135px auto;
+    width: 80%;
+    height: 350px;
+    margin: 90px auto;
     border-radius: 20px;
     color: whitesmoke;
     text-shadow: 1px 1px 2px #000;
   }
 
-.logadmin_container h1 {
+.login_container {
+    height: 350px;
+}
+
+.admin_dashboard {
+    height: 300px;
+}
+
+
+.login_container .alert {
+    color: red;
+    text-shadow: none;
+    font-size: 1.3rem;
+}
+
+.login_container .form-container label {
+    font-size: 1.3rem;
+    margin: 0 8px;
+}
+
+.login_container h1, .admin_dashboard h1 {
     padding-top: 25px;
-}
-
-.main_container .date h2 {
-    background: #e0ffff;
-    padding: 20px;
-    text-shadow: 1px 1px 2px #2e2c2c;
-    font-size: 3rem;
-}
-
-.main_container .sub-heading {
-    width: 50%;
-    margin: 50px auto;
-    background: rgba(47, 182, 182, 0.767);
-    padding: 5px 0 10px 0;
-    border-radius: 60px;
-    color: rgba(1, 1, 66, 0.6);
-}
-
-.main_container .sub-heading h2 {
-    margin-top: 20px;
-    font-size: x-large;
-    font-size: 3rem;
-}
-
-.about_container {
-    max-width: 75%;
-    margin: 30px auto;
-    padding: 20px;
-    background-color: #f5f5f5;;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.main_paragraph {
-    font-size: 18px;
-    color: #333;
-    font-weight: bold;
-}
-
-h3 {
-    font-size: 24px;
-    margin-top: 20px;
-}
-
-.sub_paragraph {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 20px;
 }
 
 .gis_image {
@@ -252,6 +275,22 @@ h3 {
 
 .table-responsive .table .table-blue:hover {
     background-color: rgba(72, 203, 243, 0.6);
+}
+
+
+#gis_output_table, #gis_activity_table, #gis_resp_person_table, #gis_task_table {
+    text-align: center;
+    vertical-align: middle;
+}
+  
+#gis_output_table th, #gis_activity_table th, #gis_resp_person_table th, #gis_task_table th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#gis_output_table td, #gis_activity_table td, #gis_resp_person_table td, #gis_task_table td {
+    text-align: center;
+    vertical-align: middle;
 }
 
 @media (max-width: 480px) {

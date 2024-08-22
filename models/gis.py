@@ -6,13 +6,16 @@ Base = declarative_base()
 
 
 class Output(Base):
-  __tablename__ = "output"
+    __tablename__ = "output"
 
-  id = Column(Integer, primary_key=True)
-  name = Column(String(255), nullable=False)
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False)
 
-  def __repr__(self):
-    return f"Output(id={self.id}, name='{self.name}')"
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return f"Output(id={self.id}, name='{self.name}')"
 
 class Activity(Base):
   __tablename__ = "activities"
@@ -25,6 +28,11 @@ class Activity(Base):
   output = relationship("Output", backref="activities")
   responsible_person = relationship("ResponsiblePerson", backref="activities")
 
+  def __init__(self, activity, output_id, responsible_person_id):
+        self.activity = activity
+        self.output_id = output_id
+        self.responsible_person_id = responsible_person_id
+
   def __repr__(self):
     return f"Activity(id={self.id}, activity='{self.activity}', output_id={self.output_id}, responsible_person_id={self.responsible_person_id})"
 
@@ -34,6 +42,10 @@ class ResponsiblePerson(Base):
   id = Column(Integer, primary_key=True)
   name = Column(String(255), nullable=False)
   designation = Column(String(255), nullable=False)
+
+  def __init__(self, name, designation):
+        self.name = name
+        self.designation = designation
 
   def __repr__(self):
     return f"ResponsiblePerson(id={self.id}, name='{self.name}', designation='{self.designation}')"
@@ -47,6 +59,11 @@ class Task(Base):
   percentage_of_activity = Column(DECIMAL(5, 2), nullable=True)
 
   activity = relationship("Activity", backref="tasks")
+
+  def __init__(self, activity_id, description, percentage_of_activity=None):
+        self.activity_id = activity_id
+        self.description = description
+        self.percentage_of_activity = percentage_of_activity
 
   def __repr__(self):
     return f"Task(id={self.id}, activity_id={self.activity_id}, description='{self.description}', percentage_of_activity={self.percentage_of_activity})"

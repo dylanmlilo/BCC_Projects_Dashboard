@@ -1,0 +1,43 @@
+{% block content %}
+<div id="myGISTaskModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New Data</h4>
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    <ul class="flashes">
+                        {% for category, message in messages %}
+                            <li class="flash {{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% endwith %}
+            
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('insert_gis_task_data') }}" method="post">
+                    <div class="form-group">
+                        <label>Activity ID <span style="color: red;">*</span></label>
+                        <input type="number" class="form-control" name="activity_id" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Task Description <span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="task_description" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Percentage Done <span style="color: red;">*</span></label>
+                        <input type="number" class="form-control" name="percentage_of_activity" required>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary left-aligned-button" style="float: left;" type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

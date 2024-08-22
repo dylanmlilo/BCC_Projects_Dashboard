@@ -108,8 +108,12 @@ def gis_data_to_dict_list():
     finally:
         session.close()
         
-
-    results = session.execute(query).fetchall()
+    try:
+       results = session.execute(query).fetchall()
+    except:
+        session.rollback()
+    finally:
+        session.close()
 
     gis_data = []
     for row in results:
@@ -129,7 +133,7 @@ def gis_data_to_dict_list():
 def gis_data_to_responsible_person():
     gis_data = gis_data_to_dict_list()
     responsible_person_dict = {}
-    
+
     for data in gis_data:
         person_name = data['responsible_person']
         if person_name not in responsible_person_dict:
@@ -140,6 +144,84 @@ def gis_data_to_responsible_person():
 
 # test = gis_data_to_responsible_person()
 # print(test)
+
+
+def gis_output_data_to_dict_list():
+    output_list = []
+    try:
+        query = session.query(Output.id, Output.name).all()
+    except:
+        session.rollback()
+    finally:
+        session.close()
+
+    for row in query:
+        output_dict = {
+            "output_id": row[0],
+            "output_name": row[1]
+        }
+        output_list.append(output_dict)
+
+    return output_list
+
+def gis_activity_data_to_dict_list():
+    activity_list = []
+    try:
+        query = session.query(Activity.id, Activity.activity, Activity.output_id, Activity.responsible_person_id).all()
+    except:
+        session.rollback()
+    finally:
+        session.close()
+
+    for row in query:
+        activity_dict = {
+            "activity_id": row[0],
+            "activity_name": row[1],
+            "output_id": row[2],
+            "responsible_person_id": row[3]
+        }
+        activity_list.append(activity_dict)
+
+    return activity_list
+
+def gis_responsible_person_data_to_dict_list():
+    responsible_person_list = []
+    try:
+        query = session.query(ResponsiblePerson.id, ResponsiblePerson.name, ResponsiblePerson.designation).all()
+    except:
+        session.rollback()
+    finally:
+        session.close()
+
+    for row in query:
+        responsible_person_dict = {
+            "responsible_person_id": row[0],
+            "responsible_person_name": row[1],
+            "designation": row[2]
+        }
+        responsible_person_list.append(responsible_person_dict)
+
+    return responsible_person_list
+
+def gis_task_data_to_dict_list():
+    task_list = []
+    try:
+        query = session.query(Task.id, Task.description, Task.percentage_of_activity, Task.activity_id).all()
+    except:
+        session.rollback()
+    finally:
+        session.close()
+
+    for row in query:
+        task_dict = {
+            "task_id": row[0],
+            "task_description": row[1],
+            "percentage_of_activity": row[2],
+            "activity_id": row[3]
+        }
+        task_list.append(task_dict)
+
+    return task_list
 
 def strategic_tasks_to_dict_list():
     # Perform a join between StrategicTask and ProjectManagers on the assigned_to column
