@@ -315,6 +315,7 @@ def gis():
 
 
 @app.route("/GIS_data", strict_slashes=False)
+@login_required
 def gis_data():
     """
     Function to handle GIS data retrieval and rendering.
@@ -367,6 +368,57 @@ def insert_gis_resp_person_data():
         finally:
             session.close()
 
+@app.route("/update_gis_resp_person_data/<int:gis_resp_person_data_id>", methods=['POST'])
+def update_gis_resp_person_data(gis_resp_person_data_id):
+    """
+    Updates the gis data into the database and redirects to the gis data page.
+
+    Returns:
+        flask.Response: A redirect response to the  dagista page or a JSON response with an error message.
+    """
+    if request.method == 'POST':
+        try:
+
+            responsible_person = session.query(ResponsiblePerson).filter_by(id=gis_resp_person_data_id).first()
+            if responsible_person:
+                responsible_person.name = request.form.get('responsible_person_name')
+                responsible_person.designation = request.form.get('designation')
+
+                session.commit()
+                flash('Data updated successfully')
+                return redirect(url_for('gis_data'))
+
+        except Exception as e:
+            session.rollback()
+            return jsonify({'error': str(e)}), 400
+
+        finally:
+            session.close()
+
+
+@app.route("/delete_gis_resp_person_data/<int:gis_resp_person_data_id>", methods=['POST', 'GET'])
+def delete_gis_resp_person_data(gis_resp_person_data_id):
+    """
+    Deletes the gis data from the database and redirects to the gis data page.
+
+    Returns:
+        flask.Response: A redirect response to the  dagista page or a JSON response with an error message.
+    """
+    try:
+        responsible_person = session.query(ResponsiblePerson).filter_by(id=gis_resp_person_data_id).first()
+        if responsible_person:
+            session.delete(responsible_person)
+            session.commit()
+            flash('Data deleted successfully')
+            return redirect(url_for('gis_data'))
+
+    except Exception as e:
+        session.rollback()
+        return jsonify({'error': str(e)}), 400
+
+    finally:
+        session.close()
+
 
 @app.route("/insert_gis_output_data", methods=['POST'])
 def insert_gis_output_data():
@@ -392,6 +444,57 @@ def insert_gis_output_data():
 
         finally:
             session.close()
+
+
+@app.route("/update_gis_output_data/<int:gis_output_data_id>", methods=['POST'])
+def update_gis_output_data(gis_output_data_id):
+    """
+    Updates the gis data into the database and redirects to the gis data page.
+
+    Returns:
+        flask.Response: A redirect response to the  dagista page or a JSON response with an error message.
+    """
+    if request.method == 'POST':
+        try:
+
+            output = session.query(Output).filter_by(id=gis_output_data_id).first()
+            if output:
+                output.name = request.form.get('output_name')
+
+                session.commit()
+                flash('Data updated successfully')
+                return redirect(url_for('gis_data'))
+
+        except Exception as e:
+            session.rollback()
+            return jsonify({'error': str(e)}), 400
+
+        finally:
+            session.close()
+
+
+@app.route("/delete_gis_output_data/<int:gis_output_data_id>", methods=['POST', 'GET'])
+def delete_gis_output_data(gis_output_data_id):
+    """
+    Deletes the gis data from the database and redirects to the gis data page.
+
+    Returns:
+        flask.Response: A redirect response to the  dagista page or a JSON response with an error message.
+    """
+    try:
+        output = session.query(Output).filter_by(id=gis_output_data_id).first()
+        if output:
+            session.delete(output)
+            session.commit()
+            flash('Data deleted successfully')
+            return redirect(url_for('gis_data'))
+
+    except Exception as e:
+        session.rollback()
+        return jsonify({'error': str(e)}), 400
+
+    finally:
+        session.close()
 
 
 @app.route("/insert_gis_activity_data", methods=['POST'])
@@ -423,6 +526,59 @@ def insert_gis_activity_data():
             session.close()
 
 
+@app.route("/update_gis_activity_data/<int:gis_activity_data_id>", methods=['POST'])
+def update_gis_activity_data(gis_activity_data_id):
+    """
+    Updates the gis data into the database and redirects to the gis data page.
+
+    Returns:
+        flask.Response: A redirect response to the  dagista page or a JSON response with an error message.
+    """
+    if request.method == 'POST':
+        try:
+
+            activity = session.query(Activity).filter_by(id=gis_activity_data_id).first()
+            if activity:
+                activity.activity = request.form.get('activity_name')
+                activity.output_id = request.form.get('output_id')
+                activity.responsible_person_id = request.form.get('responsible_person_id')
+
+                session.commit()
+                flash('Data updated successfully')
+                return redirect(url_for('gis_data'))
+
+        except Exception as e:
+            session.rollback()
+            return jsonify({'error': str(e)}), 400
+
+        finally:
+            session.close()
+
+
+@app.route("/delete_gis_activity_data/<int:gis_activity_data_id>", methods=['POST', 'GET'])
+def delete_gis_activity_data(gis_activity_data_id):
+    """
+    Deletes the gis data from the database and redirects to the gis data page.
+
+    Returns:
+        flask.Response: A redirect response to the  dagista page or a JSON response with an error message.
+    """
+    try:
+        activity = session.query(Activity).filter_by(id=gis_activity_data_id).first()
+        if activity:
+            session.delete(activity)
+            session.commit()
+            flash('Data deleted successfully')
+            return redirect(url_for('gis_data'))
+
+    except Exception as e:
+        session.rollback()
+        return jsonify({'error': str(e)}), 400
+
+    finally:
+        session.close()
+
+
 @app.route("/insert_gis_task_data", methods=['POST'])
 def insert_gis_task_data():
 
@@ -431,6 +587,11 @@ def insert_gis_task_data():
             activity_id = request.form.get('activity_id')
             description = request.form.get('task_description')
             percentage_of_activity = request.form.get('percentage_of_activity')
+
+            if not percentage_of_activity:
+                percentage_of_activity = None
+            else:
+                percentage_of_activity = float(percentage_of_activity)
 
             new_task = Task(activity_id=activity_id, description=description, percentage_of_activity=percentage_of_activity)
             session.add(new_task)
@@ -444,6 +605,65 @@ def insert_gis_task_data():
 
         finally:
             session.close()
+
+
+@app.route("/update_gis_task_data/<int:gis_task_data_id>", methods=['POST'])
+def update_gis_task_data(gis_task_data_id):
+    """
+    Updates the gis data into the database and redirects to the gis data page.
+
+    Returns:
+        flask.Response: A redirect response to the  dagista page or a JSON response with an error message.
+    """
+    if request.method == 'POST':
+        try:
+
+            task = session.query(Task).filter_by(id=gis_task_data_id).first()
+            if task:
+                task.activity_id = request.form.get('activity_id')
+                task.description = request.form.get('task_description')
+                percentage_of_activity = request.form.get('percentage_of_activity')
+                if percentage_of_activity:
+                    task.percentage_of_activity = percentage_of_activity
+                else:
+                    task.percentage_of_activity = None
+
+                session.commit()
+                flash('Data updated successfully')
+                return redirect(url_for('gis_data'))
+
+        except Exception as e:
+            session.rollback()
+            return jsonify({'error': str(e)}), 400
+
+        finally:
+            session.close()
+
+
+@app.route("/delete_gis_task_data/<int:gis_task_data_id>", methods=['POST', 'GET'])
+def delete_gis_task_data(gis_task_data_id):
+    """
+    Deletes the gis data from the database and redirects to the gis data page.
+
+    Returns:
+        flask.Response: A redirect response to the  dagista page or a JSON response with an error message.
+    """
+   
+    try:
+        task = session.query(Task).filter_by(id=gis_task_data_id).first()
+        if task:
+            session.delete(task)
+            session.commit()
+            flash('Data deleted successfully')
+            return redirect(url_for('gis_data'))
+
+    except Exception as e:
+        session.rollback()
+        return jsonify({'error': str(e)}), 400
+
+    finally:
+        session.close()
+
 
 @app.route('/insert_gis_data', methods=['POST'])
 def insert_gis_data():

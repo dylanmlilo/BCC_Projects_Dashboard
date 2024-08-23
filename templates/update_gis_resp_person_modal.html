@@ -1,0 +1,30 @@
+{% block content %}
+<!-- Update GIS Responsible Person Modal -->
+<div class="modal fade" id="updateGISRespPersonModal{{ resp_person_data.responsible_person_id }}" tabindex="-1" role="dialog" aria-labelledby="updateGISRespPersonModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateGISRespPersonModalLabel">Edit Form</h5>
+        </div>
+        <div class="modal-body">
+          <form action="{{ url_for('update_gis_resp_person_data', gis_resp_person_data_id=resp_person_data.responsible_person_id) }}" method="post">
+            <div class="form-group">
+                <label>Name <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" name="responsible_person_name" value="{{ resp_person_data.responsible_person_name }}" required>
+            </div>
+            <div class="form-group">
+                <label>Designation <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" name="designation" value="{{ resp_person_data.designation }}" required>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary left-aligned-button" style="float: left;" type="submit">Submit</button>
+            </div>
+          </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

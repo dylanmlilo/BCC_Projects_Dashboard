@@ -41,6 +41,11 @@
     padding: 10px 10px;
 }
 
+.stats_data_container .table tr td, .stats_data_container .table tr th, .stats_data_container .table tr .dt-type-numeric {
+    vertical-align: middle;
+    text-align: center;
+}
+
 .stats_data_container .table tr td:hover {
     background: rgba(233, 236, 236, 0.274);
 }
@@ -278,20 +283,7 @@ h3 {
 }
 
 
-#gis_output_table, #gis_activity_table, #gis_resp_person_table, #gis_task_table {
-    text-align: center;
-    vertical-align: middle;
-}
-  
-#gis_output_table th, #gis_activity_table th, #gis_resp_person_table th, #gis_task_table th {
-    text-align: center;
-    vertical-align: middle;
-}
-
-#gis_output_table td, #gis_activity_table td, #gis_resp_person_table td, #gis_task_table td {
-    text-align: center;
-    vertical-align: middle;
-}
+/* Media Queries */
 
 @media (max-width: 480px) {
 

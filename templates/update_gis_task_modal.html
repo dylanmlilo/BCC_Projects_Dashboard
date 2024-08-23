@@ -1,0 +1,34 @@
+{% block content %}
+<!-- Update GIS Task Modal -->
+<div class="modal fade" id="updateGISTaskModal{{ task_data.task_id }}" tabindex="-1" role="dialog" aria-labelledby="myGISTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myGIStaskModalLabel">Edit Form</h5>
+        </div>
+        <div class="modal-body">
+          <form action="{{ url_for('update_gis_task_data', gis_task_data_id=task_data.task_id) }}" method="post">
+            <div class="form-group">
+                <label>Activity ID <span style="color: red;">*</span></label>
+                <input type="number" class="form-control" name="activity_id" value="{{ task_data.activity_id }}" required>
+            </div>
+            <div class="form-group">
+                <label>Task Description <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" name="task_description" value="{{ task_data.task_description }}" required>
+            </div>
+            <div class="form-group">
+                <label>Percentage Done</label>
+                <input type="number" class="form-control" name="percentage_of_activity" value="{{ task_data.percentage_of_activity }}">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary left-aligned-button" style="float: left;" type="submit">Submit</button>
+            </div>
+          </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

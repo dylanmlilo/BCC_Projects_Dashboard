@@ -81,35 +81,40 @@ def gis_data_to_dict_list():
     """
     Returns a list of dictionaries containing GIS data.
     
+    This function queries the database to retrieve GIS data, including output information, 
+    activity details, responsible person information, and task descriptions. It then 
+    constructs a list of dictionaries, where each dictionary represents a single GIS data 
+    point. The function handles potential database errors and ensures that the session is 
+    properly closed.
+    
     Returns:
         A list of dictionaries for GIS Data
     """
     try:
         query = select(
-                Output.id,
-                Output.name,
-                Activity.activity,
-                ResponsiblePerson.name,
-                ResponsiblePerson.designation,
-                Task.description,
-                Task.percentage_of_activity
-            ).select_from(
-                Output
-            ).join(
-                Activity, Output.id == Activity.output_id
-            ).join(
-                ResponsiblePerson, Activity.responsible_person_id == ResponsiblePerson.id
-            ).join(
-                Task, Activity.id == Task.activity_id
-            )
+            Output.id,
+            Output.name,
+            Activity.activity,
+            ResponsiblePerson.name,
+            ResponsiblePerson.designation,
+            Task.description,
+            Task.percentage_of_activity
+        ).select_from(
+            Output
+        ).outerjoin(
+            Activity, Output.id == Activity.output_id
+        ).outerjoin(
+            ResponsiblePerson, Activity.responsible_person_id == ResponsiblePerson.id
+        ).outerjoin(
+            Task, Activity.id == Task.activity_id
+        )
     except:
         session.rollback()
-        
     finally:
         session.close()
-        
+
     try:
-       results = session.execute(query).fetchall()
+        results = session.execute(query).fetchall()
     except:
         session.rollback()
     finally:

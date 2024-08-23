@@ -30,8 +30,9 @@
                                 <a href="/delete_gis_resp_person_data/{{ resp_person_data.responsible_person_id }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
                                 <a href="/update_gis_resp_person_data/{{ resp_person_data.responsible_person_id }}" class="btn btn-warning btn-xs update-btn" data-toggle="modal" data-target="#updateGISRespPersonModal{{ resp_person_data.responsible_person_id }}">Edit</a>
                             </td>
-                        {% include "add_gis_resp_person_modal.html" %}
                         </tr>
+                        {% include "add_gis_resp_person_modal.html" %}
+                        {% include "update_gis_resp_person_modal.html" %}
                         {% endfor %}
                     </tbody>
                     </table>
@@ -66,8 +67,9 @@
                                 <a href="/delete_gis_output_data/{{ output_data.output_id }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
                                 <a href="/update_gis_output_data/{{ output_data.output_id }}" class="btn btn-warning btn-xs update-btn" data-toggle="modal" data-target="#updateGISOutputModal{{ output_data.output_id }}">Edit</a>
                             </td>
-                            {% include "add_gis_output_modal.html" %}
                         </tr>
+                        {% include "add_gis_output_modal.html" %}
+                        {% include "update_gis_output_modal.html" %}
                         {% endfor %}
                     </tbody>
                     </table>
@@ -106,8 +108,9 @@
                                 <a href="/delete_gis_activity_data/{{ activity_data.activity_id }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
                                 <a href="/update_gis_activity_data/{{ activity_data.activity_id }}" class="btn btn-warning btn-xs update-btn" data-toggle="modal" data-target="#updateGISActivityModal{{ activity_data.activity_id }}">Edit</a>
                             </td>
-                            {% include "add_gis_activity_modal.html" %}
                         </tr>
+                        {% include "add_gis_activity_modal.html" %}
+                        {% include "update_gis_activity_modal.html" %}
                         {% endfor %}
                     </tbody>
                     </table>
@@ -146,8 +149,9 @@
                                 <a href="/delete_gis_task_data/{{ task_data.task_id }}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
                                 <a href="/update_gis_task_data/{{ task_data.task_id }}" class="btn btn-warning btn-xs update-btn" data-toggle="modal" data-target="#updateGISTaskModal{{ task_data.task_id }}">Edit</a>
                             </td>
-                            {% include "add_gis_task_modal.html" %}
                         </tr>
+                        {% include "add_gis_task_modal.html" %}
+                        {% include "update_gis_task_modal.html" %}
                         {% endfor %}
                     </tbody>
                     </table>
