@@ -1,4 +1,4 @@
-d from flask import Flask, render_template, abort, jsonify, request, redirect, url_for, flash
+from flask import Flask, render_template, abort, jsonify, request, redirect, url_for, flash
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 from models.plot_functions import today_date, plot_home_page_charts, plot_servicing_page_charts, progress_bar
 from models.engine.database import session, projects_data_to_dict_list, gis_data_to_dict_list, gis_data_to_responsible_person, strategic_tasks_to_dict_list, gis_output_data_to_dict_list, gis_activity_data_to_dict_list, gis_responsible_person_data_to_dict_list, gis_task_data_to_dict_list, project_managers_to_dict_list
