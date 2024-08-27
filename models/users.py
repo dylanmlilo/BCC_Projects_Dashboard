@@ -1,9 +1,7 @@
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import declarative_base
 from flask_login import UserMixin
-
+from models.base import Base
 # Base.metadata.create_all(engine)
-Base = declarative_base()
 
 
 class Users(Base, UserMixin):

@@ -1,8 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, Date, DECIMAL, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-
-Base = declarative_base()
+from models.base import Base
 
 class Section(Base):
     __tablename__ = 'section'
@@ -10,17 +8,37 @@ class Section(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100))
 
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return f"Section({self.name})"
+
 class ProjectManagers(Base):
     __tablename__ = 'project_managers'
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100))
+    section = Column(String(100))
+
+    def __init__(self, name, section):
+        self.name = name
+        self.section = section
+
+    def __repr__(self):
+        return f"ProjectManagers({self.name}, {self.section})"
 
 class ContractType(Base):
     __tablename__ = 'contract_type'
     
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100))
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return f"ContractType({self.name})"
 
 class ProjectsData(Base):
     __tablename__ = 'projects_data'

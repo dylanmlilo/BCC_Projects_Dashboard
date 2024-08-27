@@ -1,11 +1,12 @@
-from flask import Flask, render_template, abort, jsonify, request, redirect, url_for, flash
+d from flask import Flask, render_template, abort, jsonify, request, redirect, url_for, flash
 from flask_login import LoginManager, login_required, login_user, logout_user, current_user
 from models.plot_functions import today_date, plot_home_page_charts, plot_servicing_page_charts, progress_bar
-from models.engine.database import session, projects_data_to_dict_list, gis_data_to_dict_list, gis_data_to_responsible_person, strategic_tasks_to_dict_list, gis_output_data_to_dict_list, gis_activity_data_to_dict_list, gis_responsible_person_data_to_dict_list, gis_task_data_to_dict_list
+from models.engine.database import session, projects_data_to_dict_list, gis_data_to_dict_list, gis_data_to_responsible_person, strategic_tasks_to_dict_list, gis_output_data_to_dict_list, gis_activity_data_to_dict_list, gis_responsible_person_data_to_dict_list, gis_task_data_to_dict_list, project_managers_to_dict_list
 from models.users import Users
 from models.login import LoginForm
 from models.projects import ProjectsData
 from models.gis import ResponsiblePerson, Activity, Task, Output
+from models.strategic import StrategicTask
 import os
 import requests
 from dotenv import load_dotenv
@@ -728,6 +729,71 @@ def strategic_planning():
     return render_template("strategic_planning.html", today_date=formatted_date, 
                            strategic_data_list=strategic_data_list)
 
+
+@app.route("/strategic_planning_data", strict_slashes=False)
+def strategic_planning_data():
+    """
+    Function to handle Strategic Planning data route.
+
+    Retrieves strategic data list and renders the strategic_planning.html template.
+
+    Parameters:
+    - None
+
+    Returns:
+    - Rendered template "strategic_planning.html" with strategic data list.
+    """
+    formatted_date = today_date()
+    strategic_data_list = strategic_tasks_to_dict_list()
+    project_managers = project_managers_to_dict_list()
+    return render_template("strategic_planning_data.html", strategic_data_list=strategic_data_list,
+                           today_date=formatted_date, project_managers=project_managers)
+
+
+@app.route("/insert_strategic_data", methods=['POST'])
+def insert_strategic_data():
+    """
+    Function to handle insert strategic data route.
+
+    Retrieves strategic data list and renders the strategic_planning.html template.
+
+    Parameters:
+    - None
+
+    Returns:
+    - Rendered template "strategic_planning.html" with strategic data list.
+    """
+    if request.method == 'POST':
+        try:
+            task = request.form.get('task')
+            description = request.form.get('description')
+            deliverables = request.form.get('deliverables')
+            assigned_to = request.form.get('assigned_to')
+            deadline = request.form.get('deadline')
+            status = request.form.get('status')
+            priority = request.form.get('priority')
+            percentage_done = request.form.get('percentage_done')
+            fixed_cost = request.form.get('fixed_cost')
+            estimated_hours = request.form.get('estimated_cost')
+            actual_hours = request.form.get('actual_cost')
+
+
+            new_task = StrategicTask(task=task, description=description, deliverables=deliverables, 
+                            assigned_to=assigned_to, deadline=deadline, status=status, 
+                            priority=priority, percentage_done=percentage_done, 
+                            fixed_cost=fixed_cost, estimated_hours=estimated_hours, 
+                            actual_hours=actual_hours)
+            session.add(new_task)
+            session.commit()
+            flash('Data inserted successfully')
+            return redirect(url_for('strategic_planning_data'))
+        
+        except Exception as e:
+            session.rollback()
+            return jsonify({'error': str(e)}), 400
+        
+        finally:
+            session.close()
 
 @app.route("/api/projects_data", strict_slashes=False)
 def projects_data_api():

@@ -10,7 +10,7 @@ nav .navbar-brand #logo {
 } 
 
 .offcanvas-body .dropdown .dropdown-menu {
-    background: rgb(162, 173, 177);
+    background: rgb(198, 205, 209);
     width: 200px;
 }
 
@@ -21,7 +21,7 @@ nav .navbar-brand #logo {
 }
 
 #offcanvasNavbar .offcanvas-body .navbar-nav .nav-item .nav-link:hover {
-    color: rgb(192, 194, 195);;
+    color: rgb(192, 194, 195);
 }
 
 

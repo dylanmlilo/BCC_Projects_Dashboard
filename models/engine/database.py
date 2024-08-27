@@ -16,6 +16,30 @@ Session = sessionmaker(bind=engine)
 
 session = Session()
 
+
+def project_managers_to_dict_list():
+    """
+    Convert SQLAlchemy query results into a list of dictionaries.
+    Exclude the _sa_instance_state attribute.
+    
+    Returns:
+        list: A list of dictionaries containing project managers.
+    """
+    try:
+        project_managers = session.query(ProjectManagers).all()
+    except:
+        session.rollback()
+    finally:
+        session.close()
+    result_list = []
+    for row in project_managers:
+        result_dict = {}
+        for column in row.__table__.columns:
+            result_dict[column.name] = getattr(row, column.name)
+        result_list.append(result_dict)
+    return result_list
+
+
 def projects_data_to_dict_list(contract_type_id=None):
     """
     Convert SQLAlchemy query results into a list of dictionaries.
@@ -261,25 +285,3 @@ def strategic_tasks_to_dict_list():
     ]
     
     return task_list
-
-
-# strategic_data = strategic_tasks_to_dict_list()
-# print(strategic_data)
-
-# gis_data = gis_data_to_dict_list()
-# print(gis_data)
-
-# print(servicing_data_dict(4))
-
-
-# print(projects_data_to_dict_list(1))
-
-
-# def project_managers_to_dict():
-#     project_managers = []
-#     project_manager = session.query(ProjectManagers.name).all()
-    
-        
-
-# result = projects_data_to_dict_list(1)
-# print(result)

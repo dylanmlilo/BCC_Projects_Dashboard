@@ -1,8 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, Date, DECIMAL, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-
-Base = declarative_base()
+from models.base import Base
 
 
 class Output(Base):
